@@ -22,18 +22,20 @@ Read the whole source before diagnosing or restructuring it. In review-only work
 3. Organize around questions the reader will naturally ask. Use headings that name a question, finding, or action. Do not follow the source code's component order unless it also serves the reader.
 4. Introduce each component through its job and relationship to known components, then its exact technical name. For procedures, retain exact names in commands and connect them to stable human-readable roles.
 5. Explain cause and effect explicitly: what happens, why it happens, and what consequence matters here. Definitions and inventories alone do not explain a system.
-6. Introduce one unfamiliar relationship at a time. Expand dense noun phrases into actors and verbs. Keep necessary technical terms; expanding an acronym alone rarely explains its meaning.
+6. Introduce one unfamiliar relationship at a time. Expand dense noun phrases into actors and verbs. Keep necessary technical terms; expanding an acronym alone rarely explains its meaning. If one sentence both introduces a component and explains several unfamiliar concepts, split those jobs: state the component's role first, then explain its lifecycle, implementation, or relationship to other components in following sentences. Avoid a definition nested inside another definition; parentheses and technical vocabulary remain fine.
 7. Use one consistent worked example to connect abstractions when it helps. Label example values and placeholders. Explain what an output demonstrates and what the reader must do with it.
 
 ## Control detail and branching
 
 Separate one-time preparation from repeated operation. State what must already be true when each phase starts and what changes when it ends.
 
-For alternatives, place the decision criteria before branch-specific instructions. Make it clear which path applies, what to skip, and where paths rejoin. In an explanation, compare the meaningful tradeoff before implementation details. Do not interleave two complete procedures and make readers mentally filter every paragraph.
+For alternatives, place the decision criteria before branch-specific instructions. Make it clear which path applies, what to skip, and where paths rejoin. Put every limitation that determines whether a path or procedure is suitable before the reader chooses or starts it: compatibility requirements, costs, downtime, irreversible changes, residual risks, and recovery limits. Repeat the operational part of the warning at the affected action. A caveat that appears only after the consequential action does not give the reader an informed choice. In an explanation, compare the meaningful tradeoff before implementation details. Do not interleave two complete procedures and make readers mentally filter every paragraph.
 
 Keep information in the main reading path when it changes understanding, a decision, or the next action. Move exhaustive reference material and uncommon exceptions to clearly linked sections. Do not move prerequisites, stop conditions, or safety-critical qualifications out of the place where they are needed.
 
-Give each fact a primary home. Repeat a critical warning at the action it governs when readers could otherwise miss it. Remove repetition that merely restates a heading or re-explains a settled point. Do not introduce every section with 'This section explains...' unless the sentence adds useful scope or context.
+Give each fact a primary home. Repeat a critical warning at the action it governs when readers could otherwise miss it. Remove repetition that re-explains a settled point.
+
+Read each heading together with its opening sentence. If the sentence only announces or paraphrases the heading, delete it rather than rewording it. Keep an opening sentence that adds purpose, prerequisites, scope, or a reason the reader needs.
 
 Use connected prose for causal explanation, numbered steps for sequences, tables for exact comparisons or mappings, and diagrams for relationships that are difficult to hold in prose. Do not add a visual merely to repeat a short paragraph. Avoid forcing every paragraph into bullets or every idea into a new heading.
 
@@ -49,23 +51,34 @@ Name important artifacts by role as well as filename. Keep readers oriented abou
 
 Preserve commands, literal identifiers, quantitative bounds, assumptions, guarantees, and required ordering unless a separately justified technical correction is requested. Do not silently make technical changes during an editorial pass.
 
+Compare each important claim in the output with the source. Check whether an edit broadened the entities it covers, removed a condition, strengthened certainty, or changed an obligation (required to optional or the reverse). Words such as all, every, only, always, never, must, may, prevents, and guarantees deserve a second look. Apply this to introductions and summaries too: they may omit detail, but not a distinction the reader needs to understand the mechanism.
+
 State guarantees with their conditions. Keep qualifications close enough to prevent a stronger interpretation. When the source is ambiguous or contradictory, flag the exact unresolved point instead of choosing a convenient interpretation. Distinguish editorial review from technical validation.
 
 Replace abstract labels with the concrete action or mechanism they describe when the label adds little. Introduce a formal label after its meaning if readers need it later. Prefer literal language to decorative analogies; if an analogy is useful, explain its relevant limit.
 
 Use direct, calm language. Avoid hype, invented jargon, ornamental transitions, rhetorical questions, and strings of defensive caveats. Use straight quotation marks and ordinary hyphens. Do not impose arbitrary sentence-length limits, ban passive voice universally, or simplify by deleting necessary content.
 
-## Review before returning
+## Revise before returning
 
-First inspect structure, then paragraphs, then wording. Perform these checks against the actual output:
+Stating these principles does not ensure the draft follows them. After drafting, make one deliberate review pass over the complete output, fix what it finds, then recheck only the passages you changed and anything that depends on them. Do not loop indefinitely, and do not present self-review as a substitute for reader testing. Inspect structure first, then paragraphs, then wording:
 
 - Can the intended reader explain the problem, central mechanism, and reason for the major design choices without rereading the whole document?
 - Does each new term or component have a purpose when introduced? Are project assumptions explicit without teaching already-known basics?
-- Can readers follow each relevant branch from start to finish without searching for an earlier or later missing prerequisite?
-- Does each paragraph advance the explanation, support a decision, or enable an action? Remove empty announcements and duplicate coverage.
-- Are actors, locations, artifacts, and changes of state unambiguous at transitions?
-- Are commands, conditions, limitations, and essential warnings preserved? Flag missing evidence instead of smoothing it over.
+- Walk through each supported path using only information already encountered or explicitly linked as a prerequisite. At each action, check who performs it, where it happens, what must already exist or be running, and what happens next. Cover setup, branch entries and exits, failures, and retries, not only the successful main sequence. Supply missing context from the available evidence, such as source code or configuration, or flag it; never invent commands or system behavior to complete the walkthrough.
+- After moving or deleting material, recheck branch entry and exit instructions, cross-references, and retry destinations; they are part of the procedure's meaning. Where a step number could refer to more than one sequence, use the destination's descriptive title and a link.
+- Apply the heading test to every section opening. Does each remaining paragraph advance the explanation, support a decision, or enable an action? Delete duplicate coverage.
+- Are decision-critical limitations placed before the choice they affect?
+- Compare claims with the source for scope, conditions, certainty, and obligation. Are commands, limitations, and essential warnings preserved? Flag missing evidence instead of smoothing it over.
 
-For reviews, prioritize the few patterns causing the most reader effort and connect each to a reusable instruction. For edits, return the edited document without an unsolicited explanation. Keep internal planning and checking out of the deliverable unless requested.
+Word count and the disappearance of stock phrases are signals, not success criteria. A shorter document that loses a prerequisite or a condition fails.
 
-Consult [references/principles-and-examples.md](references/principles-and-examples.md) when concrete diagnostic examples or the basis for these rules would help. These are editorial heuristics, not evidence that a prompt guarantees comprehension. Real reader feedback remains the strongest check.
+For edits, return the edited document without an unsolicited explanation. Keep internal planning and checking out of the deliverable unless requested.
+
+## Review someone else's draft or a revision
+
+Prioritize findings that could make readers misunderstand a mechanism, choose an unsuitable path, act in the wrong context, or get stuck. Report each with the passage, the reader's difficulty, and the smallest useful correction, and connect recurring problems to a reusable instruction. List optional wording preferences separately and label them as such.
+
+When reviewing a revision, first verify whether earlier findings were resolved, then inspect the passages those fixes affect. Do not assume another rewrite is necessary. If only stylistic preferences remain, say so and recommend stopping; the next useful test is a real reader following the document.
+
+Consult [references/principles-and-examples.md](references/principles-and-examples.md) for contrasting examples of these checks from several domains and for the basis of these rules. These are editorial heuristics, not evidence that a prompt guarantees comprehension. Real reader feedback remains the strongest check.

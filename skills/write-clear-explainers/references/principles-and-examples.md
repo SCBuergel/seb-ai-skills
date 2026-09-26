@@ -23,6 +23,11 @@ Use these as diagnostic illustrations, not mandatory structures for other domain
 | 'Conditional 2-of-2 confidentiality property' and 'cold-power boundary' lead with compressed abstractions. | Readers must unpack a label before understanding the concrete mechanism. | Explain what is separated or what action is required, then introduce a needed formal label. |
 | Commands say 'In dom0' in a guide with two computers. | A local environment label may not identify the physical machine. | State machine and environment when both matter. |
 | One passage relies on complete power removal, while an operational step says remove standby power 'where practical'. | The reader cannot determine the exact requirement. | Flag inconsistent obligation or scope; do not silently resolve technical uncertainty as an editorial change. |
+| A first revision reworded 'This subsection...' openers to 'This step...' instead of deleting them. | The scaffolding survived under new wording. | Apply the heading test: delete an opener that only paraphrases its heading. |
+| The limits of power removal were explained only after the step that scans and powers off. | The reader learns whether the path was acceptable after committing to it. | Put suitability limits before the choice; repeat only the operational warning at the action. |
+| A simplification turned a list of untrusted qubes into 'every qube that handles the data', which included a trusted one. | The claim now contradicts the trust model. | Compare claim scope with the source after simplifying. |
+| Setup said 'edit the configuration' without saying it must be committed; the build tool reads only committed state. Found only by reading the tool's code during a walkthrough. | A reader following the text exactly would build the old configuration without an error. | Walk through setup against the available evidence, not only the main procedure. |
+| 'Repeat from step 3' inside a subsection with its own numbered list. | The reader cannot tell which step 3 is meant. | Use the destination's title and a link when numbers are ambiguous. |
 
 ## Calibration examples from other domains
 
@@ -38,8 +43,44 @@ More useful: 'On the replica, check how far replication is behind the primary.'
 
 The improvement adds location and purpose. Keep a longer explanation if readers also need to know what lag means or which value is acceptable.
 
+## Contrasting examples of the checks
+
+These come from different domains so that the checks, not the QR guide, are what transfer.
+
+**Heading test (database operations).**
+
+Weak: '## Promote the replica' followed by 'This step promotes the replica to primary.'
+
+Better: '## Promote the replica' followed by 'Stop writes on the old primary first; otherwise both servers accept writes and the data diverges.' The opening now adds a prerequisite and its reason. Deleting the opener entirely is also acceptable when the steps speak for themselves.
+
+**Decision-time limitations (firmware update).**
+
+Weak: step 6 of an update procedure says 'The device cannot be rolled back to the previous firmware version.'
+
+Better: the section that asks whether to update says the update is irreversible and what that rules out, before any step. Step 6 repeats 'This write cannot be undone' at the flashing command.
+
+The same applies to downtime in a migration guide, a cost in a cloud setup guide, or a hardware requirement in an install guide.
+
+**Claim scope (backup policy).**
+
+Source: 'Nightly snapshots cover the database and uploaded files. Logs are not backed up.'
+
+Weak edit: 'Nightly snapshots back up all service data.'
+
+The edit broadened 'database and uploaded files' to 'all', and dropped an exclusion a reader needs during recovery. Similarly, 'reduces the chance of X' must not become 'prevents X', and 'should' must not become 'must' or the reverse without evidence.
+
+**Nested definitions (container orchestration).**
+
+Weak: 'Deploy the sidecar (a container in the same pod, the smallest deployable unit, which shares a network namespace, an isolated view of network interfaces) with the app.'
+
+Better: 'Deploy the log shipper as a sidecar next to the app. A sidecar is a second container in the same pod, so it sees the app's network and files. A pod is the smallest unit Kubernetes schedules.' The role comes first; each concept gets its own sentence.
+
+**Walkthrough and navigation (CI release pipeline).**
+
+Walking through a release guide as the reader: step 4 says 'approve the deployment', but nothing says who can approve or where the button is; the failure branch says 'fix and rerun' without saying whether rerunning repeats the already-published package upload. Supply the answer from the pipeline definition if it is available, otherwise flag it. After restructuring, check that the rollback branch still ends by pointing back to the verification step it used to precede.
+
 ## Evaluate the skill
 
 Compare assisted and unassisted outputs on the same task and source. Use questions with concrete answers: What is the system trying to do? Why does a component exist? Which path applies? Where is the next action performed? What observation means stop?
 
-Check both comprehension and preservation of technical requirements. A shorter document that loses a prerequisite fails. An AI self-review or independent model review is a preliminary check, not a substitute for observing representative readers.
+Check both comprehension and preservation of technical requirements. Walk through each path in the output and record every missing prerequisite, location, or decision. Compare claims with the source for changed scope, conditions, certainty, or obligation. A shorter document that loses a prerequisite fails. Word count and counts of stock phrases such as 'This section' are useful signals, but neither shows that the explanation works. An AI self-review or independent model review is a preliminary check, not a substitute for observing representative readers.
