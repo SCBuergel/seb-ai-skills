@@ -1,5 +1,5 @@
 ---
-name: explain-technical-docs
+name: write-clear-explainers
 description: Write and review technical explainers and mixed explanation/procedure documents for technically capable readers unfamiliar with the specific system. Use for requests to make documentation understandable, diagnose hard-to-follow AI writing, improve conceptual flow, or explain architecture and mechanisms. Preserve technical precision and safety requirements. Respect review-only requests; do not rewrite unless asked.
 ---
 

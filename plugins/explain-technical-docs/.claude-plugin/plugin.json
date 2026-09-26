@@ -1,9 +1,0 @@
-{
-  "name": "explain-technical-docs",
-  "version": "0.2.0",
-  "description": "Write and review technical explainers for readers new to the system.",
-  "author": {
-    "name": "Sebastian C. Bürgel"
-  },
-  "license": "MIT"
-}

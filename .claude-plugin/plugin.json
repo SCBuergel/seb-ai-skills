@@ -1,0 +1,11 @@
+{
+  "name": "seb-ai-skills",
+  "version": "0.3.0",
+  "description": "Sebastian's AI skills: clear technical explainers and Gnosis VPN server testing.",
+  "author": {
+    "name": "Sebastian C. Bürgel"
+  },
+  "homepage": "https://github.com/SCBuergel/seb-ai-skills",
+  "repository": "https://github.com/SCBuergel/seb-ai-skills",
+  "license": "MIT"
+}

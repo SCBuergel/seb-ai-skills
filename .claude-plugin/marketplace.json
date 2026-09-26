@@ -4,13 +4,13 @@
     "name": "Sebastian C. Bürgel"
   },
   "metadata": {
-    "description": "Claude Code skills by Sebastian C. Bürgel, one plugin per skill."
+    "description": "Claude Code skills by Sebastian C. Bürgel."
   },
   "plugins": [
     {
-      "name": "explain-technical-docs",
-      "source": "./plugins/explain-technical-docs",
-      "description": "Write and review technical explainers for readers new to the system."
+      "name": "seb-ai-skills",
+      "source": "./",
+      "description": "Sebastian's AI skills: clear technical explainers and Gnosis VPN server testing."
     }
   ]
 }
