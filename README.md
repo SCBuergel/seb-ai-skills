@@ -1,17 +1,18 @@
 # seb-ai-skills
 
 Claude Code skills by Sebastian C. Bürgel. A skill is a set of instructions,
-in a `SKILL.md` file, that Claude loads when a task calls for it. This
-repository distributes the skills through a Claude Code
-[plugin marketplace](https://code.claude.com/docs/en/plugin-marketplaces):
-the marketplace, named `seb-ai-skills`, lists plugins, and each plugin here
-contains exactly one skill with the same name. You install only the skills
-you want.
+in a `SKILL.md` file, that Claude loads when a task calls for it.
+
+This repository is a Claude Code
+[plugin marketplace](https://code.claude.com/docs/en/plugin-marketplaces)
+named `seb-ai-skills`. A marketplace lists plugins, which are what you
+install. Each plugin here contains exactly one skill with the same name, so
+you install only the skills you want.
 
 | Skill | What it does |
 | --- | --- |
 | `write-clear-explainers` | Writes and reviews technical explainers and mixed explanation/procedure docs for readers who are technical but new to the system. |
-| `test-gnosis-vpn` | Installs, funds and tests the latest Gnosis VPN client on a remote Linux server over SSH, with guards that keep the SSH session from being cut off. |
+| `test-gnosis-vpn` | Installs, funds and tests the latest Gnosis VPN client on a remote Linux server over SSH. It runs commands as root on that server, changes its routes and firewall rules, and starts a watchdog on it: if the heartbeat you send over SSH stops for 6 minutes, the watchdog tears the VPN down, and after 12 minutes it reboots the server once. |
 
 ## Install a skill
 
@@ -62,9 +63,6 @@ claude plugin marketplace remove seb-ai-skills
 
 ## Maintain this repository
 
-The rest of this README is for adding and changing skills in this
-repository.
-
 ### How the repository is laid out
 
 ```text
@@ -98,13 +96,15 @@ reaches nobody who already has the skill.
    }
    ```
 
-3. Validate and test as described below, then commit and push.
+3. Run the checks in [Validate and test before pushing](#validate-and-test-before-pushing),
+   then commit and push.
 
 ### Change a skill
 
 1. Edit the files under `skills/<skill-name>/`.
 2. Bump that skill's `version` in `.claude-plugin/marketplace.json`.
-3. Validate and test as described below, then commit and push.
+3. Run the checks in [Validate and test before pushing](#validate-and-test-before-pushing),
+   then commit and push.
 
 ### Validate and test before pushing
 
@@ -115,11 +115,13 @@ claude plugin validate --strict .
 claude plugin validate --strict skills
 ```
 
-Each command should end with `Validation passed`.
+Each command should end with `Validation passed`. If either reports errors,
+fix them and run both commands again.
 
-Then install from your working copy. The local marketplace has the same name
-as the GitHub one, so run the test with a temporary Claude Code config
-directory. That leaves your own installed skills untouched:
+Then install the skill from your working copy, which includes uncommitted
+changes. The local marketplace has the same name as the GitHub one, so run
+the test with a temporary Claude Code config directory. That leaves your own
+installed skills untouched:
 
 ```sh
 export CLAUDE_CONFIG_DIR=$(mktemp -d)
@@ -129,9 +131,10 @@ claude plugin details <skill-name>@seb-ai-skills
 unset CLAUDE_CONFIG_DIR
 ```
 
-`claude plugin details` should list the new version and `Skills (1)` with
-the skill's name. Run the test from a working copy that contains your
-changes; it does not need to be committed.
+`claude plugin details` should show the version from `marketplace.json`
+and `Skills (1)` followed by the skill's name. If the skill is missing, check
+that its entry in `marketplace.json` points at the right folder and that the
+`name` in `SKILL.md` matches the folder name.
 
 ## License
 
