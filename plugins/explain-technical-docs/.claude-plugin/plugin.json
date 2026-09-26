@@ -1,0 +1,9 @@
+{
+  "name": "explain-technical-docs",
+  "version": "0.1.0",
+  "description": "Improve technical explainer documents so readers can follow them.",
+  "author": {
+    "name": "Sebastian C. Bürgel"
+  },
+  "license": "MIT"
+}

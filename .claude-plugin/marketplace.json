@@ -1,0 +1,16 @@
+{
+  "name": "seb-ai-skills",
+  "owner": {
+    "name": "Sebastian C. Bürgel"
+  },
+  "metadata": {
+    "description": "Claude Code skills by Sebastian C. Bürgel, one plugin per skill."
+  },
+  "plugins": [
+    {
+      "name": "explain-technical-docs",
+      "source": "./plugins/explain-technical-docs",
+      "description": "Improve technical explainer documents so readers can follow them."
+    }
+  ]
+}
