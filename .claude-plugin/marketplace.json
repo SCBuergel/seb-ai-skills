@@ -4,13 +4,28 @@
     "name": "Sebastian C. Bürgel"
   },
   "metadata": {
-    "description": "Claude Code skills by Sebastian C. Bürgel."
+    "description": "Claude Code skills by Sebastian C. Bürgel, one plugin per skill."
   },
   "plugins": [
     {
-      "name": "seb-ai-skills",
+      "name": "write-clear-explainers",
       "source": "./",
-      "description": "Sebastian's AI skills: clear technical explainers and Gnosis VPN server testing."
+      "strict": false,
+      "skills": ["./skills/write-clear-explainers"],
+      "version": "0.4.0",
+      "description": "Write and review technical explainers for readers who are technical but new to the system.",
+      "author": { "name": "Sebastian C. Bürgel" },
+      "license": "MIT"
+    },
+    {
+      "name": "test-gnosis-vpn",
+      "source": "./",
+      "strict": false,
+      "skills": ["./skills/test-gnosis-vpn"],
+      "version": "0.4.0",
+      "description": "Install, fund and test the latest Gnosis VPN client on a remote Linux server over SSH without locking yourself out.",
+      "author": { "name": "Sebastian C. Bürgel" },
+      "license": "MIT"
     }
   ]
 }
