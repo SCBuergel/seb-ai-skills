@@ -29,6 +29,20 @@ Use these as diagnostic illustrations, not mandatory structures for other domain
 | Setup said 'edit the configuration' without saying it must be committed; the build tool reads only committed state. Found only by reading the tool's code during a walkthrough. | A reader following the text exactly would build the old configuration without an error. | Walk through setup against the available evidence, not only the main procedure. |
 | 'Repeat from step 3' inside a subsection with its own numbered list. | The reader cannot tell which step 3 is meant. | Use the destination's title and a link when numbers are ambiguous. |
 
+## Patterns from integrating new requirements into the same guide
+
+These appeared when later security requirements were added to the QR-transfer guide. Each new requirement was correct; the failures came from not reconciling it with the rest of the document.
+
+| Evidence | Reader burden | General instruction |
+|---|---|---|
+| A new rule said `sys-usb` must never handle the webcam, but hardware discovery still told the reader to plug the webcam into `sys-usb`. | Following the guide in order violates its own rule before the rule's section is reached. | Treat a new requirement as a change to the document's logic: find every step it affects, including setup and discovery, and read 'never' as covering all of them. |
+| After a failed scan, the guide said to return to 'Show the QR code', but the display disposable had already shut down and discarded its copy. | The link is valid, yet the next action is impossible. | Track state through the procedure; a retry destination must have its starting conditions restored, or the reader must be sent back further. |
+| A new requirement that devices be unplugged was added, but the guide still said the setup 'qualifies for one of two paths' and 'otherwise, use the sequential path'. | A reader excluded by the new rule is still routed onto a path. | Update every decision point and fallback when a restriction excludes a case, and say when no supported path applies. |
+| The requirement for an alternative keyboard appeared after the build instruction. | The reader learns about a prerequisite after the action that needed it. | Place a prerequisite before the first instruction that starts the affected action. |
+| Covering, disabling, and detaching the camera were listed together without saying whether each is sufficient. | The reader cannot tell whether the cheapest option meets the requirement. | State the required outcome; present methods as interchangeable only when the evidence shows each meets it. |
+
+The same failure outside this guide: a runbook gains the rule 'the production database must never be reachable from the public internet', but its troubleshooting section still says 'temporarily open port 5432 to test connectivity from your laptop'. The rule's 'never' covers troubleshooting too, so that step must change, or be flagged if no safe alternative is known.
+
 ## Calibration examples from other domains
 
 Weak: 'The reconciliation subsystem provides eventual consistency.'
@@ -83,4 +97,4 @@ Walking through a release guide as the reader: step 4 says 'approve the deployme
 
 Compare assisted and unassisted outputs on the same task and source. Use questions with concrete answers: What is the system trying to do? Why does a component exist? Which path applies? Where is the next action performed? What observation means stop?
 
-Check both comprehension and preservation of technical requirements. Walk through each path in the output and record every missing prerequisite, location, or decision. Compare claims with the source for changed scope, conditions, certainty, or obligation. A shorter document that loses a prerequisite fails. Word count and counts of stock phrases such as 'This section' are useful signals, but neither shows that the explanation works. An AI self-review or independent model review is a preliminary check, not a substitute for observing representative readers.
+Check both comprehension and preservation of technical requirements. Walk through each path in the output and record every missing prerequisite, location, or decision. Compare claims with the source for changed scope, conditions, certainty, or obligation. A shorter document that loses a prerequisite fails. Word count and counts of stock phrases such as 'This section' are useful signals, but neither shows that the explanation works. Include incremental-editing tests: an existing procedure plus a new constraint that invalidates earlier steps, graded on whether every affected passage changed. A test that only asks for a static draft to be improved misses the integration failures above. The repository's `evals/write-clear-explainers/` directory has two such cases. In their first runs on short guides, runs without the skill passed about as often as runs with it, so they currently work as regression checks rather than evidence that the skill helps. The failures above appeared in a long guide revised over several rounds; a discriminating test probably needs a document and change history of that size. An AI self-review or independent model review is a preliminary check, not a substitute for observing representative readers.

@@ -68,6 +68,8 @@ claude plugin marketplace remove seb-ai-skills
 ```text
 .claude-plugin/marketplace.json    the marketplace: one plugin entry per skill
 skills/<skill-name>/SKILL.md       the skill, plus any files it uses
+evals/<skill-name>/<case>/         optional test cases for a skill
+evals/run.sh                       runs a skill's test cases
 ```
 
 There is no `plugin.json` per plugin. Instead, each entry in
@@ -135,6 +137,28 @@ unset CLAUDE_CONFIG_DIR
 and `Skills (1)` followed by the skill's name. If the skill is missing, check
 that its entry in `marketplace.json` points at the right folder and that the
 `name` in `SKILL.md` matches the folder name.
+
+### Run a skill's test cases
+
+Some skills have test cases under `evals/<skill-name>/`. Each case is a
+`prompt.md` plus `graders/*.md` files that describe what a good answer must
+do. `claude plugin eval` runs each prompt with and without the skill and
+has a model grade the answers. The runner needs a `plugin.json`, which this
+repository does not have, so `evals/run.sh` builds a temporary plugin from
+your working copy and runs the cases there.
+
+In a terminal at the repository root:
+
+```sh
+evals/run.sh write-clear-explainers
+```
+
+Extra options go to `claude plugin eval`, for example `--case 'narrow*'` to
+run one case or `--runs 1` for a cheaper check. Each run uses your Claude
+account; a full run of both `write-clear-explainers` cases cost about 3 US
+dollars. The script grades with Sonnet, because the default Haiku grader
+gave inconsistent verdicts on these cases. The summary table shows scores
+with the skill, without it, and the difference.
 
 ## License
 
