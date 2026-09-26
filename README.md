@@ -8,7 +8,7 @@ Each skill is its own plugin, so you install only the ones you want.
 
 | Plugin | Skill | What it does |
 | --- | --- | --- |
-| `explain-technical-docs` | `explain-technical-docs` | Improves technical explainer documents so readers can follow them. The instructions are still a placeholder. |
+| `explain-technical-docs` | `explain-technical-docs` | Writes and reviews technical explainers and mixed explanation/procedure docs for readers who are technical but new to the system. |
 
 ## Install
 

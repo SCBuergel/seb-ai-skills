@@ -10,7 +10,7 @@
     {
       "name": "explain-technical-docs",
       "source": "./plugins/explain-technical-docs",
-      "description": "Improve technical explainer documents so readers can follow them."
+      "description": "Write and review technical explainers for readers new to the system."
     }
   ]
 }
